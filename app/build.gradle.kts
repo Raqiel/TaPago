@@ -49,7 +49,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.navigation.compose.jvmstubs)
     implementation(libs.volley)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -66,5 +65,12 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.coil)
     implementation(libs.coil.gif)
-    implementation(libs.coil.compose)
+
+    implementation (libs.navigation.compose)
+
+    implementation(libs.material)
+
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
+
 }

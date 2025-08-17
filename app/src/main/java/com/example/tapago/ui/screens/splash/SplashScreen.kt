@@ -9,6 +9,7 @@ import android.os.Build.VERSION.SDK_INT
 import android.widget.VideoView
 import androidx.annotation.OptIn
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,66 +37,32 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import coil.size.Size
+import com.example.tapago.Destination
 import com.example.tapago.R
+import com.example.tapago.ui.components.VideoPlayer
+import com.example.tapago.ui.theme.GrayW700
 import com.example.tapago.ui.theme.Oswald
 import com.example.tapago.ui.theme.Yellow700
+import kotlinx.coroutines.delay
 import java.util.Locale
 
 @Composable
-fun SplashScreen() {
-    val context = LocalContext.current
+fun SplashScreen(navigate: (Destination) -> Unit,
+) {
 
-//    val uri = Uri.parse("android.resource://${context.packageName}/${R.raw.galinha}")
-//    val playerView = remember {
-//        PlayerView(context)
-//    }
-//
-//    val playWhenReady = remember {
-//        mutableStateOf(true)
-//    }
-//
-//    val player = remember {
-//        ExoPlayer.Builder(context).build().apply {
-//            this.repeatMode = Player.REPEAT_MODE_ONE
-//            this.playWhenReady = playWhenReady.value
-//            playerView.player = this
-//            prepare()
-//            play()
-//        }
-//    }
-//
-//    LaunchedEffect(uri) {
-//        playerView.useController = false
-//        playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
-//        player.videoScalingMode= C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
-//        val mediaItem =  MediaItem.fromUri(uri);
-//        player.setMediaItem(mediaItem)
-//    }
+    LaunchedEffect(Unit) {
+       delay(1000)
+        navigate(Destination.Home())
+    }
 
-    Column(modifier = Modifier.fillMaxSize(),
+    Column(modifier = Modifier.fillMaxSize()
+        .background(GrayW700),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
 
-        val imageLoader = ImageLoader.Builder(context)
-            .components {
-                if (SDK_INT >= 28) {
-                    add(ImageDecoderDecoder.Factory())
-                } else {
-                    add(GifDecoder.Factory())
-                }
-            }
-            .build()
-        Image(
-            modifier= Modifier.size(80.dp),
-            painter = rememberAsyncImagePainter(
-                ImageRequest.Builder(context).data(data = R.drawable.frango).apply(block = {
-                    size(Size.ORIGINAL)
-                }).build(), imageLoader = imageLoader
-            ),
-            contentDescription = null,
-        )
+        VideoPlayer()
 
         Text(
             text = "Carregando...",

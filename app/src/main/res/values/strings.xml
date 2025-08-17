@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TaPago</string>
+
+    <string name="my_workouts">Meus treinos</string>
+
+
 </resources>

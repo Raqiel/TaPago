@@ -1,8 +1,10 @@
 package com.example.tapago
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,27 +17,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
 import androidx.navigation.NavGraph
 import androidx.navigation.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.tapago.ui.theme.TaPagoTheme
 
 
+@SuppressLint("CustomSplashScreen")
 class LaunchActivity : AppCompatActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT)
+        )
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
-            TaPagoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LaunchApp()
-                }
-            }
+        LaunchApp()
         }
     }
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 private fun LaunchApp() {
     val navController = rememberNavController()
