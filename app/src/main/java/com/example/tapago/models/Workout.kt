@@ -5,5 +5,6 @@ data class Workout (
     val letter:String,
     val name:String?,
     val description:String?,
-    val photo:String?
+    val photo:String?,
+    val exercises:List<Exercises>?
 )

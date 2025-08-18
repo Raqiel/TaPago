@@ -5,6 +5,7 @@ import android.widget.GridView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,8 +44,10 @@ import com.example.tapago.R
 import com.example.tapago.ui.components.DebossedCard
 import com.example.tapago.ui.components.EmbossedCard
 import com.example.tapago.ui.theme.BackgroundCardsColor
+import com.example.tapago.ui.theme.Description
 import com.example.tapago.ui.theme.FeaturedText
 import com.example.tapago.ui.theme.SuperFeaturedText
+import com.example.tapago.ui.theme.Title
 import com.example.tapago.ui.theme.Yellow300
 import com.example.tapago.ui.theme.Yellow50
 
@@ -102,8 +105,30 @@ private fun WorkoutsView(uiState: HomeUiState) {
                 }
             }
         }
+    } else {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                text = "Você não possui treinos",
+                style = Title
+            )
+            Spacer(Modifier.height(10.dp))
+            Text(
+                text = "Criar um treino",
+                style = Description,
+                modifier = Modifier.clickable {
+
+                }
+            )
+        }
+
     }
 
+
+}
+
+
+@Composable
+fun EmptyWorkouts() {
 
 }
 

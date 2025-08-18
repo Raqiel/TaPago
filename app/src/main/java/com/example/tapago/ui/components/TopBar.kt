@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -123,6 +124,7 @@ fun DebossedButton(
 
 @Composable
 fun EmbossedButton(
+    content: @Composable () -> Unit = {}
 ) {
 
     var isPressed by remember { mutableStateOf(false) }
@@ -171,8 +173,11 @@ fun EmbossedButton(
                 .clickable(
                     interactionSource = interactionSource,
                     indication = null
-                ) { }
-        )
+                ) { },
+            contentAlignment = Alignment.Center
+        ) {
+            content()
+        }
     }
 }
 
@@ -267,24 +272,24 @@ fun EmbossedCard(
         }
     }
 
-    Box(contentAlignment = Alignment.Center) {
+    Box(modifier = modifier, contentAlignment = Alignment.Center) {
         Box(
             modifier
-                .size(80.dp)
+                .fillMaxSize()
                 .offset { IntOffset(offset, offset) }
                 .blur(blur, edgeTreatment = BlurredEdgeTreatment.Unbounded)
                 .background(Color.Black.copy(alpha = 0.3f), RoundedCornerShape(20.dp))
         )
         Box(
             modifier
-                .size(80.dp)
+                .fillMaxSize()
                 .offset { IntOffset(-offset, -offset) }
                 .blur(blur, edgeTreatment = BlurredEdgeTreatment.Unbounded)
                 .background(Color.White.copy(alpha = 0.2f), RoundedCornerShape(20.dp))
         )
         Box(
             modifier
-                .size(80.dp)
+                .fillMaxSize()
                 .background(GrayW800.copy(alpha = 0.2f), RoundedCornerShape(20.dp))
                 .clickable(
                     interactionSource = interactionSource,

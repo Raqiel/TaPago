@@ -31,6 +31,8 @@ val Blue700 = Color(0xFF000E47)
 //gray
 val GrayW800 = Color(0xFF1D201F)
 val GrayW700 = Color(0xFF363A39)
+val GrayW750 = Color(0xFF353535)
+
 val GrayW600 = Color(0xFF727272)
 
 val White = Color(0xFFFFFFFF)
