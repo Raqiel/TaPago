@@ -7,7 +7,7 @@ import androidx.compose.ui.unit.sp
 
 
 val SuperFeaturedText = TextStyle(
-    color = GrayW750,
+    color = Yellow700,
     fontSize = 60.sp,
     fontFamily = PlayFair,
     fontWeight = FontWeight.Bold
@@ -20,7 +20,7 @@ val SuperFeaturedTitle = TextStyle(
     fontWeight = FontWeight.Bold
 )
 val FeaturedText = TextStyle(
-    color = Yellow300,
+    color = FeaturedColor,
     fontSize = 30.sp,
     fontFamily = PlayFair,
     fontWeight = FontWeight.Bold

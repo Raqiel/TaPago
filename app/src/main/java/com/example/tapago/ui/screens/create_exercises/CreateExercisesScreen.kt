@@ -18,17 +18,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.tapago.Destination
 import com.example.tapago.ui.components.EmbossedButton
 import com.example.tapago.ui.theme.BackgroundCardsColor
 import com.example.tapago.ui.theme.Description
 import com.example.tapago.ui.theme.FeaturedText
 
 @Composable
-fun CreateExercisesScreen(){
+fun CreateExercisesScreen(navigate: (Destination) -> Unit) {
 
     var letter by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
+    var set by remember { mutableStateOf("") }
+    var rep by remember { mutableStateOf("") }
+    var weight by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -78,6 +82,42 @@ fun CreateExercisesScreen(){
             },
             modifier = Modifier.fillMaxWidth()
         )
+        Spacer(Modifier.height(10.dp))
+        Text(
+            text = "Série",
+            style = Description
+        )
+        TextField(
+            value = set,
+            onValueChange = {
+                set = it
+            },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.height(10.dp))
+        Text(
+            text = "Repetição",
+            style = Description
+        )
+        TextField(
+            value = rep,
+            onValueChange = {
+                rep = it
+            },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.height(10.dp))
+        Text(
+            text = "Carga",
+            style = Description
+        )
+        TextField(
+            value = weight,
+            onValueChange = {
+                weight = it
+            },
+            modifier = Modifier.fillMaxWidth()
+        )
         Spacer(Modifier.height(50.dp))
 
         EmbossedButton() {
@@ -91,6 +131,8 @@ fun CreateExercisesScreen(){
 
 @Preview
 @Composable
-fun CreateExercisesScreenPreview(){
-
+fun CreateExercisesScreenPreview() {
+    CreateExercisesScreen(
+        navigate = {}
+    )
 }

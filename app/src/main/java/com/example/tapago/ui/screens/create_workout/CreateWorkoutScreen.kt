@@ -18,6 +18,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.tapago.Destination
+import com.example.tapago.models.Workout
 import com.example.tapago.ui.components.EmbossedButton
 import com.example.tapago.ui.theme.BackgroundCardsColor
 import com.example.tapago.ui.theme.Description
@@ -26,7 +28,10 @@ import com.example.tapago.ui.theme.Title
 
 
 @Composable
-fun CreateWorkoutScreen() {
+fun CreateWorkoutScreen(
+    navigate: (Destination) -> Unit,
+    workout: Workout
+    ) {
 
     var letter by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
@@ -94,5 +99,5 @@ fun CreateWorkoutScreen() {
 @Preview
 @Composable
 fun CreateWorkoutScreenPreview() {
-    CreateWorkoutScreen()
+    //CreateWorkoutScreen(navigate = {})
 }

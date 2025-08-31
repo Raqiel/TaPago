@@ -3,5 +3,8 @@
 
     <string name="my_workouts">Meus treinos</string>
 
+    <!-- Home-->
+    <string name="home_title">Já treinou hoje frango?</string>
+
 
 </resources>

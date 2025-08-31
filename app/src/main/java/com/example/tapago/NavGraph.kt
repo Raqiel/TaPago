@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.tapago.extensions.getArgObject
 import com.example.tapago.models.Exercises
 import com.example.tapago.models.Workout
 import com.example.tapago.models.mockExercises
@@ -29,6 +30,7 @@ object ResultKeys {
 }
 
 object ArgumentKeys {
+    const val WORKOUT_KEY = "WORKOUT_KEY"
 
 
 }
@@ -36,11 +38,9 @@ object ArgumentKeys {
 sealed class Destination {
     class Home(val route: String = Route.HOME_ROUTE) : Destination()
     class Splash(val route: String = Route.SPLASH_ROUTE) : Destination()
-    class Workout(val route: String = Route.WORKOUT_ROUTE) : Destination()
+    class Workout(val route: String = Route.WORKOUT_ROUTE, val workout:Workout?) : Destination()
     class CreateWorkout(val route: String = Route.CREATE_WORKOUT_ROUTE) : Destination()
     class CreateExercise(val route: String = Route.CREATE_EXERCISE_ROUTE) : Destination()
-
-
 }
 
 
@@ -58,6 +58,7 @@ fun NavGraph(
             Route.HOME_ROUTE
         ) {
             HomeScreen(
+                navigate = actions.navigate
             )
         }
         composable(
@@ -82,13 +83,17 @@ fun NavGraph(
         composable(
             Route.CREATE_WORKOUT_ROUTE
         ) {
-            CreateWorkoutScreen()
+          //  val workout = navController.getArgObject(
+          //      key = br.com.rodobank.app.ArgumentKeys.ACTIVE_LOGIN_KEY,
+           //     classOf = ActiveLoginArguments::class.java
+           // )
+           // CreateWorkoutScreen(navigate = actions.navigate)
         }
 
         composable(
             Route.CREATE_EXERCISE_ROUTE
         ) {
-            CreateWorkoutScreen()
+           // CreateWorkoutScreen(navigate = actions.navigate)
         }
 
     }
@@ -105,6 +110,7 @@ class MainActions(private val navController: NavHostController) {
             is Destination.Splash -> navController.navigate(destination.route)
             is Destination.Workout -> navController.navigate(destination.route)
             is Destination.CreateWorkout -> navController.navigate(destination.route)
+            is Destination.CreateExercise -> navController.navigate(destination.route)
 
         }
 
