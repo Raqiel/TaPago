@@ -1,5 +1,7 @@
 package com.example.tapago
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
@@ -10,6 +12,7 @@ import com.example.tapago.extensions.getArgObject
 import com.example.tapago.models.Exercises
 import com.example.tapago.models.Workout
 import com.example.tapago.models.mockExercises
+import com.example.tapago.models.mockWorkouts
 import com.example.tapago.ui.screens.create_workout.CreateWorkoutScreen
 import com.example.tapago.ui.screens.home.HomeScreen
 import com.example.tapago.ui.screens.splash.SplashScreen
@@ -38,12 +41,13 @@ object ArgumentKeys {
 sealed class Destination {
     class Home(val route: String = Route.HOME_ROUTE) : Destination()
     class Splash(val route: String = Route.SPLASH_ROUTE) : Destination()
-    class Workout(val route: String = Route.WORKOUT_ROUTE, val workout:Workout?) : Destination()
+    class Workout(val route: String = Route.WORKOUT_ROUTE, val workout: Workout?) : Destination()
     class CreateWorkout(val route: String = Route.CREATE_WORKOUT_ROUTE) : Destination()
     class CreateExercise(val route: String = Route.CREATE_EXERCISE_ROUTE) : Destination()
 }
 
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun NavGraph(
     navController: NavHostController = rememberNavController(),
@@ -83,17 +87,13 @@ fun NavGraph(
         composable(
             Route.CREATE_WORKOUT_ROUTE
         ) {
-          //  val workout = navController.getArgObject(
-          //      key = br.com.rodobank.app.ArgumentKeys.ACTIVE_LOGIN_KEY,
-           //     classOf = ActiveLoginArguments::class.java
-           // )
-           // CreateWorkoutScreen(navigate = actions.navigate)
+            CreateWorkoutScreen(navigate = actions.navigate)
         }
 
         composable(
             Route.CREATE_EXERCISE_ROUTE
         ) {
-           // CreateWorkoutScreen(navigate = actions.navigate)
+            // CreateWorkoutScreen(navigate = actions.navigate)
         }
 
     }

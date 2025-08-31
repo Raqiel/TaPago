@@ -6,5 +6,9 @@
     <!-- Home-->
     <string name="home_title">Já treinou hoje frango?</string>
 
+    <!-- Create workout -->
+    <string name="create_workout_placeholder_name">Nome do treino</string>
+    <string name="create_workout_placeholder_description">Descrição do treino</string>
+
 
 </resources>

@@ -39,11 +39,13 @@ import com.example.tapago.R
 import com.example.tapago.models.mockWorkouts
 import com.example.tapago.ui.components.AppFloatingButton
 import com.example.tapago.ui.components.CustomScaffold
+import com.example.tapago.ui.components.FeaturedText
 import com.example.tapago.ui.components.WorkoutCardView
 import com.example.tapago.ui.theme.BackgroundCardsColor
 import com.example.tapago.ui.theme.BackgroundColor
 import com.example.tapago.ui.theme.Description
 import com.example.tapago.ui.theme.FeaturedColor
+import com.example.tapago.ui.theme.LightColor
 import com.example.tapago.ui.theme.NormalColor
 import com.example.tapago.ui.theme.Oswald
 import java.util.Locale
@@ -104,7 +106,8 @@ private fun WorkoutsView(
 
     if (workouts != null) {
         WorkoutView(
-            longClick = {}
+            longClick = {},
+            navigate = navigate
         )
     } else {
         EmptyWorkouts(
@@ -117,6 +120,7 @@ private fun WorkoutsView(
 @Composable
 private fun WorkoutView(
     longClick: (Boolean) -> Unit,
+    navigate: (Destination) -> Unit
 ) {
     val scroll = rememberScrollState()
     Box(
@@ -147,15 +151,7 @@ private fun WorkoutView(
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 Column(modifier = Modifier.padding(20.dp)) {
-                    Text(
-                        text = "Já treinou hoje frango?".uppercase(Locale.ROOT),
-                        color = FeaturedColor,
-                        fontSize = 40.sp,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.ExtraBold,
-                        lineHeight = 60.sp,
-                        fontFamily = Oswald
-                    )
+                    FeaturedText(text = "Já treinou hoje frango?".uppercase(Locale.ROOT))
                     Spacer(modifier = Modifier.height(20.dp))
                     mockWorkouts.forEach {
                         WorkoutCardView(
@@ -176,7 +172,7 @@ private fun WorkoutView(
         AppFloatingButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd),
-            onClick = {})
+            onClick = { navigate(Destination.CreateWorkout()) })
     }
 }
 
@@ -185,14 +181,9 @@ private fun WorkoutView(
 fun EmptyWorkouts(navigate: (Destination) -> Unit) {
     Box(Modifier.fillMaxSize()) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
+            FeaturedText(
                 text = "Você não possui treinos".uppercase(Locale.ROOT),
-                color = NormalColor,
-                fontSize = 40.sp,
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.ExtraBold,
-                lineHeight = 60.sp,
-                fontFamily = Oswald
+                color = LightColor
             )
             Spacer(Modifier.height(50.dp))
             Text(
@@ -207,7 +198,7 @@ fun EmptyWorkouts(navigate: (Destination) -> Unit) {
         AppFloatingButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd),
-            onClick = {}
+            onClick = { navigate(Destination.CreateWorkout()) }
         )
     }
 }
