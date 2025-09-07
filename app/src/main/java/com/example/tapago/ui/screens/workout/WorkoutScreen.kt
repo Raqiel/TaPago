@@ -80,7 +80,7 @@ fun ExercisesView(workout: Workout) {
                     )
                     Spacer(Modifier.height(20.dp))
                     Text(
-                        text = it.description ?: "",
+                        text = it.obs ?: "",
                         style = Title,
                     )
                     Spacer(Modifier.height(20.dp))

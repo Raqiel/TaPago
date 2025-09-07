@@ -36,14 +36,15 @@ import com.example.tapago.ui.theme.NormalColor
 
 @Composable
 fun LetterEditText(
-    value: MutableState<String>
+    value: String,
+    onValueChange: (String) -> Unit
 ) {
     TextField(
         modifier = Modifier
             .width(80.dp)
             .height(100.dp),
-        value = value.value,
-        onValueChange = { value.value = it },
+        value = value,
+        onValueChange = onValueChange,
         textStyle = TextStyle(
             fontSize = 50.sp
         ),
@@ -76,7 +77,7 @@ fun TextFieldView(
     error: Boolean,
     onValueChange: (String) -> Unit,
     secondIcon: Painter? = null,
-    onSecondIconClicked: (() -> Unit)= {  }
+    onSecondIconClicked: (() -> Unit) = { }
 ) {
 
     Card(
@@ -159,14 +160,15 @@ fun TextFieldView(
 
 @Composable
 fun EditNormalText(
-    value: MutableState<String>,
+    value: String,
     placeholder: String,
-    fontSize: Int?
+    fontSize: Int?,
+    onValueChange: (String) -> Unit
 ) {
 
     TextField(
-        value = value.value,
-        onValueChange = { value.value = it },
+        value = value,
+        onValueChange = onValueChange,
         modifier = Modifier
             .fillMaxWidth(),
         colors = TextFieldDefaults.colors(

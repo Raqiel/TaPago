@@ -4,19 +4,19 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.example.tapago.extensions.getArgObject
-import com.example.tapago.models.Exercises
 import com.example.tapago.models.Workout
 import com.example.tapago.models.mockExercises
-import com.example.tapago.models.mockWorkouts
+import com.example.tapago.ui.screens.create_exercises.CreateExerciseScreen
 import com.example.tapago.ui.screens.create_workout.CreateWorkoutScreen
 import com.example.tapago.ui.screens.home.HomeScreen
+import com.example.tapago.ui.screens.shared.CreateSharedViewModel
 import com.example.tapago.ui.screens.splash.SplashScreen
-import com.example.tapago.ui.screens.workout.ExercisesView
 import com.example.tapago.ui.screens.workout.WorkoutScreen
 
 object Route {
@@ -84,19 +84,37 @@ fun NavGraph(
                 )
             )
         }
-        composable(
-            Route.CREATE_WORKOUT_ROUTE
+        navigation(
+            startDestination = Route.CREATE_WORKOUT_ROUTE,
+            route = CreateFlowRoute.ROOT
         ) {
-            CreateWorkoutScreen(navigate = actions.navigate)
-        }
 
-        composable(
-            Route.CREATE_EXERCISE_ROUTE
-        ) {
-            // CreateWorkoutScreen(navigate = actions.navigate)
-        }
+            composable(Route.CREATE_WORKOUT_ROUTE) { backStackEntry ->
+                val parentEntry = remember(backStackEntry) {
+                    navController.getBackStackEntry(CreateFlowRoute.ROOT)
+                }
+                val sharedViewModel: CreateSharedViewModel =
+                    viewModel(viewModelStoreOwner = parentEntry)
 
+                CreateWorkoutScreen(navigate = actions.navigate, viewModel = sharedViewModel)
+            }
+
+            composable(Route.CREATE_EXERCISE_ROUTE) { backStackEntry ->
+                val parentEntry = remember(backStackEntry) {
+                    navController.getBackStackEntry(CreateFlowRoute.ROOT)
+                }
+                val sharedViewModel: CreateSharedViewModel =
+                    viewModel(viewModelStoreOwner = parentEntry)
+                CreateExerciseScreen(navigate = actions.navigate, sharedViewModel)
+            }
+        }
     }
+
+}
+
+
+object CreateFlowRoute {
+    const val ROOT = "create_flow_root"
 }
 
 class MainActions(private val navController: NavHostController) {
