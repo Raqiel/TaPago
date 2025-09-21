@@ -1,4 +1,4 @@
-package com.example.tapago.ui.screens.create_exercises
+package com.example.tapago.ui.screens.shared.ui.create_exercises
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -41,8 +41,8 @@ import com.example.tapago.ui.components.EditNormalText
 import com.example.tapago.ui.components.FeaturedText
 import com.example.tapago.ui.components.MarombaButton
 import com.example.tapago.ui.components.MarombaSecondButton
-import com.example.tapago.ui.screens.shared.CreateSharedUiState
-import com.example.tapago.ui.screens.shared.CreateSharedViewModel
+import com.example.tapago.ui.screens.shared.ui.CreateSharedUiState
+import com.example.tapago.ui.screens.shared.ui.CreateSharedViewModel
 import com.example.tapago.ui.theme.BackgroundColor
 import com.example.tapago.ui.theme.BackgroundLight
 import com.example.tapago.ui.theme.FeaturedColor

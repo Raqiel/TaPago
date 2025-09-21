@@ -15,17 +15,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavGraph
 import androidx.navigation.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.example.tapago.ui.theme.TaPagoTheme
 
 
 @SuppressLint("CustomSplashScreen")
 class LaunchActivity : AppCompatActivity() {
+
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge(

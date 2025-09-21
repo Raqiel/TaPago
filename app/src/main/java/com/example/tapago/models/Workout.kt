@@ -1,8 +1,12 @@
 package com.example.tapago.models
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "workouts")
 data class Workout (
+    @PrimaryKey
     val id:String,
     val letter:String,
     val name:String?,

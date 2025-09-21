@@ -1,10 +1,15 @@
-package com.example.tapago.ui.screens.shared
+package com.example.tapago.ui.screens.shared.ui
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.tapago.models.Exercise
+import com.example.tapago.models.Workout
+import com.example.tapago.ui.screens.shared.data.WorkoutDao
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import java.lang.System.load
 import java.util.UUID
 
 class CreateSharedViewModel(
@@ -13,6 +18,14 @@ class CreateSharedViewModel(
 
     private val _uiState = MutableStateFlow(initialState)
     val uiState: StateFlow<CreateSharedUiState> = _uiState.asStateFlow()
+
+    init{
+        onLoad()
+    }
+
+    fun onLoad(){
+
+    }
 
     fun onWorkoutNameChanged(workoutName: String) {
         _uiState.value = _uiState.value.copy(workoutName = workoutName)
@@ -242,5 +255,20 @@ class CreateSharedViewModel(
         _uiState.value = _uiState.value.copy(
             exercises = currentExercises + newExercise
         )
+    }
+
+    fun onSaveWorkout(){
+        val newWorkout = Workout(
+            id = uiState.value.workout?.id ?: "",
+            letter = uiState.value.workout?.letter ?: "",
+            name = uiState.value.workout?.name ?: "",
+            description = uiState.value.workout?.description ?: "",
+            photo = null,
+            exercises = uiState.value.exercises
+        )
+
+        viewModelScope.launch {
+            //workoutDao.insertWorkout(newWorkout)
+        }
     }
 }

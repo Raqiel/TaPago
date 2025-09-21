@@ -18,6 +18,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,6 +50,7 @@ import com.example.tapago.ui.theme.FeaturedColor
 import com.example.tapago.ui.theme.LightColor
 import com.example.tapago.ui.theme.NormalColor
 import com.example.tapago.ui.theme.Oswald
+import org.koin.compose.viewmodel.koinViewModel
 import java.util.Locale
 
 
@@ -55,9 +58,9 @@ import java.util.Locale
 @Composable
 fun HomeScreen(
     navigate: (Destination) -> Unit,
-    viewModel: HomeViewModel = viewModel()
+    viewModel: HomeViewModel = koinViewModel()
 ) {
-    val uiState = viewModel.uiState
+    val uiState by viewModel.uiState.collectAsState()
 
     CustomScaffold(
         onBackClick = {},
@@ -203,12 +206,15 @@ fun EmptyWorkouts(navigate: (Destination) -> Unit) {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.P)
-@SuppressLint("ViewModelConstructorInComposable")
-@Preview
-@Composable
-fun HomeScreenPreview(
-    @PreviewParameter(HomeUiStateProvider::class) state: HomeUiState
-) {
-    HomeScreen(navigate = {}, viewModel = HomeViewModel(initialState = state))
-}
+
+
+//TODO preciso ver o que passar pro parametro workout dao e arrumar o peview
+//@RequiresApi(Build.VERSION_CODES.P)
+//@SuppressLint("ViewModelConstructorInComposable")
+//@Preview
+//@Composable
+//fun HomeScreenPreview(
+  //  @PreviewParameter(HomeUiStateProvider::class) state: HomeUiState
+//) {
+    //HomeScreen(navigate = {}, viewModel = HomeViewModel(initialState = state))
+//}

@@ -12,10 +12,10 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.example.tapago.models.Workout
 import com.example.tapago.models.mockExercises
-import com.example.tapago.ui.screens.create_exercises.CreateExerciseScreen
-import com.example.tapago.ui.screens.create_workout.CreateWorkoutScreen
+import com.example.tapago.ui.screens.shared.ui.create_exercises.CreateExerciseScreen
+import com.example.tapago.ui.screens.shared.ui.create_workout.CreateWorkoutScreen
 import com.example.tapago.ui.screens.home.HomeScreen
-import com.example.tapago.ui.screens.shared.CreateSharedViewModel
+import com.example.tapago.ui.screens.shared.ui.CreateSharedViewModel
 import com.example.tapago.ui.screens.splash.SplashScreen
 import com.example.tapago.ui.screens.workout.WorkoutScreen
 
@@ -54,6 +54,8 @@ fun NavGraph(
     startDestination: String = Destination.Splash().route
 ) {
     val actions = remember(navController) { MainActions(navController) }
+
+
     NavHost(
         navController = navController,
         startDestination = startDestination

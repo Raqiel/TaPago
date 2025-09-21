@@ -1,4 +1,4 @@
-package com.example.tapago.ui.screens.create_workout
+package com.example.tapago.ui.screens.shared.ui.create_workout
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -31,7 +31,7 @@ import com.example.tapago.ui.components.ImageButton
 import com.example.tapago.ui.components.LetterEditText
 import com.example.tapago.ui.components.RoundButton
 import com.example.tapago.ui.components.TextFieldView
-import com.example.tapago.ui.screens.shared.CreateSharedViewModel
+import com.example.tapago.ui.screens.shared.ui.CreateSharedViewModel
 import com.example.tapago.ui.theme.BackgroundColor
 import com.example.tapago.ui.theme.LightColor
 import com.example.tapago.ui.theme.NormalColor
