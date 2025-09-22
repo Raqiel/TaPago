@@ -29,9 +29,9 @@ class HomeViewModel(
 
     fun load(){
         viewModelScope.launch {
-          //  workoutDao.getAllWorkouts().collect {
-            //    _uiState.value = _uiState.value.copy(workouts = it)
-            //}
+   getWorkoutsUseCase.invoke()?.collect {
+            _uiState.value = _uiState.value.copy(workouts = it)
+        }
         }
     }
 }

@@ -18,6 +18,7 @@ import com.example.tapago.ui.screens.home.HomeScreen
 import com.example.tapago.ui.screens.shared.ui.CreateSharedViewModel
 import com.example.tapago.ui.screens.splash.SplashScreen
 import com.example.tapago.ui.screens.workout.WorkoutScreen
+import org.koin.androidx.compose.koinViewModel
 
 object Route {
     const val HOME_ROUTE = "HOME_ROUTE"
@@ -96,9 +97,9 @@ fun NavGraph(
                     navController.getBackStackEntry(CreateFlowRoute.ROOT)
                 }
                 val sharedViewModel: CreateSharedViewModel =
-                    viewModel(viewModelStoreOwner = parentEntry)
+                    koinViewModel(viewModelStoreOwner = parentEntry)
 
-                CreateWorkoutScreen(navigate = actions.navigate, viewModel = sharedViewModel)
+                CreateWorkoutScreen(navigate = actions.navigate, viewModel = sharedViewModel )
             }
 
             composable(Route.CREATE_EXERCISE_ROUTE) { backStackEntry ->

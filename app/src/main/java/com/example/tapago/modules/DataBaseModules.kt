@@ -6,6 +6,8 @@ import com.example.tapago.data.AppDatabase
 import com.example.tapago.data.local.repositories.WorkoutRepository
 import com.example.tapago.data.local.repositories.WorkoutRepositoryImpl
 import com.example.tapago.ui.screens.home.HomeViewModel
+import com.example.tapago.ui.screens.shared.ui.CreateSharedViewModel
+import com.example.tapago.usecase.CreateWorkoutUseCase
 import com.example.tapago.usecase.GetWorkoutsUseCase
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
@@ -30,9 +32,13 @@ val repositoryModule = module {
 }
 val useCaseModule = module {
     factory { GetWorkoutsUseCase(get()) }
+    factory { CreateWorkoutUseCase(get()) }
 }
 val viewModelModule = module {
     viewModel {
         HomeViewModel(getWorkoutsUseCase = get())
+    }
+    viewModel {
+        CreateSharedViewModel(createWorkoutUseCase = get())
     }
 }

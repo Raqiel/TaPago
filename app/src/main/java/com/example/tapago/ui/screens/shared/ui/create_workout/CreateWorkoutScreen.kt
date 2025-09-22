@@ -35,12 +35,13 @@ import com.example.tapago.ui.screens.shared.ui.CreateSharedViewModel
 import com.example.tapago.ui.theme.BackgroundColor
 import com.example.tapago.ui.theme.LightColor
 import com.example.tapago.ui.theme.NormalColor
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun CreateWorkoutScreen(
     navigate: (Destination) -> Unit,
-    viewModel: CreateSharedViewModel
+    viewModel: CreateSharedViewModel = koinViewModel()
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
@@ -102,6 +103,6 @@ fun CreateWorkoutScreen(
 @Preview
 @Composable
 fun CreateWorkoutScreenPreview() {
-    val sharedViewModel: CreateSharedViewModel = viewModel()
-    CreateWorkoutScreen(navigate = {}, viewModel = sharedViewModel)
+//    val sharedViewModel: CreateSharedViewModel = viewModel()
+//    CreateWorkoutScreen(navigate = {}, viewModel = sharedViewModel)
 }

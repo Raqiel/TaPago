@@ -49,11 +49,12 @@ import com.example.tapago.ui.theme.FeaturedColor
 import com.example.tapago.ui.theme.MediumColor
 import com.example.tapago.ui.theme.NormalColor
 import com.example.tapago.ui.theme.RobotoRegular
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun CreateExerciseScreen(
     navigate: (Destination) -> Unit,
-    viewModel: CreateSharedViewModel
+    viewModel: CreateSharedViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
