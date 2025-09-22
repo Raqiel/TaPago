@@ -132,6 +132,7 @@ fun CreateExerciseScreen(
                         textButton = null,
                         iconButton = Icons.Filled.Check
                     ) {
+                        viewModel.onSaveWorkout()
                     }
 
                     Spacer(modifier = Modifier.height(20.dp))

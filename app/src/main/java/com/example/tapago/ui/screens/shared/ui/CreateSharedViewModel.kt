@@ -270,7 +270,12 @@ class CreateSharedViewModel(
         )
 
         viewModelScope.launch {
-         //   createWorkoutUseCase.invoke(newWorkout)
+            try{
+                createWorkoutUseCase.invoke(newWorkout)
+
+            }catch (e: Exception){
+                val e = e
+            }
         }
     }
 }

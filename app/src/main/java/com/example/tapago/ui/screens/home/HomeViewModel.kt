@@ -15,10 +15,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 
-
 class HomeViewModel(
     initialState: HomeUiState = HomeUiState(),
-   private val getWorkoutsUseCase: GetWorkoutsUseCase
+    private val getWorkoutsUseCase: GetWorkoutsUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(initialState)
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
@@ -27,11 +26,15 @@ class HomeViewModel(
         load()
     }
 
-    fun load(){
+    fun load() {
         viewModelScope.launch {
-   getWorkoutsUseCase.invoke()?.collect {
-            _uiState.value = _uiState.value.copy(workouts = it)
-        }
+            try {
+                getWorkoutsUseCase.invoke()?.collect {
+                    _uiState.value = _uiState.value.copy(workouts = it)
+                }
+            } catch (e: Exception) {
+                val e = e
+            }
         }
     }
 }

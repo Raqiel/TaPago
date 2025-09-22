@@ -110,7 +110,8 @@ private fun WorkoutsView(
     if (workouts != null) {
         WorkoutView(
             longClick = {},
-            navigate = navigate
+            navigate = navigate,
+            uiState = uiState
         )
     } else {
         EmptyWorkouts(
@@ -123,6 +124,7 @@ private fun WorkoutsView(
 @Composable
 private fun WorkoutView(
     longClick: (Boolean) -> Unit,
+    uiState: HomeUiState,
     navigate: (Destination) -> Unit
 ) {
     val scroll = rememberScrollState()
@@ -156,7 +158,7 @@ private fun WorkoutView(
                 Column(modifier = Modifier.padding(20.dp)) {
                     FeaturedText(text = "Já treinou hoje frango?".uppercase(Locale.ROOT))
                     Spacer(modifier = Modifier.height(20.dp))
-                    mockWorkouts.forEach {
+                    uiState.workouts?.forEach {
                         WorkoutCardView(
                             titleText = it.name ?: "",
                             descriptionText = it.description,
