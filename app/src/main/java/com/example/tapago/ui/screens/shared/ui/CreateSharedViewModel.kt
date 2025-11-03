@@ -53,9 +53,9 @@ class CreateSharedViewModel(
         _uiState.value = _uiState.value.copy(exercises = currentExercises)
     }
 
-    fun onExerciseNameChanged(index: Int) {
+    fun onExerciseNameChanged(index: Int, name:String) {
         updateExerciseAtIndex(index) { exercise ->
-            exercise.copy(name = uiState.value.exercises?.get(index)?.name)
+            exercise.copy(name = name)
         }
     }
     fun onObsChanged(index: Int) {

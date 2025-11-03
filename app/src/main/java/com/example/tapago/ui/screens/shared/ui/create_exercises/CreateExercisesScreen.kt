@@ -89,7 +89,7 @@ fun CreateExerciseScreen(
                     onSettChange = { viewModel.onSetChanged(index) },
                     onWeightChange = { viewModel.onWeightChanged(index) },
                     onBackBoardChange = { viewModel.onBackBoardChanged(index) },
-                    onNameChange = { viewModel.onExerciseNameChanged(index) },
+                    onNameChange = { viewModel.onExerciseNameChanged(index, it) },
                     uiState = uiState,
                     onDecreaseSet = { viewModel.onDecreaseSet(index) },
                     onIncreaseSet = { viewModel.onIncreaseSet(index) },

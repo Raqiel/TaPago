@@ -22,10 +22,6 @@ class HomeViewModel(
     private val _uiState = MutableStateFlow(initialState)
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
-    init {
-        load()
-    }
-
     fun load() {
         viewModelScope.launch {
             try {
