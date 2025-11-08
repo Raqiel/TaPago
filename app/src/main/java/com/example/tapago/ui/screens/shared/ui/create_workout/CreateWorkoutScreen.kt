@@ -45,9 +45,6 @@ fun CreateWorkoutScreen(
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
-    var letter = remember { mutableStateOf("") }
-    var name by remember { mutableStateOf("") }
-    var description = remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -92,6 +89,7 @@ fun CreateWorkoutScreen(
             color = NormalColor,
             imageVector = Icons.Filled.Check,
             onClick = {
+                val  a = uiState.letter
                 navigate(Destination.CreateExercise())
 
             }

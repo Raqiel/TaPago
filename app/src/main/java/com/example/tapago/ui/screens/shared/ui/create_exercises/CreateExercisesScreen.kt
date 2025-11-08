@@ -57,11 +57,7 @@ fun CreateExerciseScreen(
     viewModel: CreateSharedViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
-
-    // Este estado local 'exercisesList' não parece estar sendo usado.
-    // O ideal é usar apenas o uiState que vem do ViewModel.
-    // Se ele não for usado, pode ser removido.
-
+val a = uiState.letter
     Column(
         modifier = Modifier
             .background(BackgroundColor)
