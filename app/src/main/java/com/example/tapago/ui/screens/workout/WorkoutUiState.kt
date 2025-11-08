@@ -11,7 +11,7 @@ internal class WorkoutUiStateProvider :
         WorkoutUiState(
             workout =
                 Workout(
-                    id = "1",
+                    id = 1,
                     letter = "A",
                     name = "Inferiores I",
                     description = null,

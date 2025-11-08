@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "workouts")
 data class Workout (
-    @PrimaryKey
-    val id:String,
+    @PrimaryKey(autoGenerate = true)
+    val id:Long,
     val letter:String,
     val name:String?,
     val description:String?,
@@ -17,7 +17,7 @@ data class Workout (
 
 val mockWorkouts = listOf(
     Workout(
-        id = "wk001",
+        id = 0L,
         letter = "A",
         name = "Peito e Ombros",
         description = "Treino focado no desenvolvimento do peitoral e deltoides, para um tronco mais forte e imponente.",
@@ -28,7 +28,7 @@ val mockWorkouts = listOf(
         )
     ),
     Workout(
-        id = "wk002",
+        id = 0L,
         letter = "B",
         name = "Pernas",
         description = "Treino completo para membros inferiores, essencial para uma base sólida e equilíbrio corporal.",
@@ -38,7 +38,7 @@ val mockWorkouts = listOf(
         )
     ),
     Workout(
-        id = "wk003",
+        id = 0L,
         letter = "C",
         name = "Costas e Bíceps",
         description = "Foco em puxadas para construir costas largas e fortes, com trabalho complementar para os braços.",
@@ -49,7 +49,7 @@ val mockWorkouts = listOf(
         )
     ),
     Workout(
-        id = "wk004",
+        id = 0L,
         letter = "D",
         name = "Full Body - Força",
         description = "Um treino que abrange os principais grupos musculares, ideal para quem busca ganhos de força geral.",
@@ -61,7 +61,7 @@ val mockWorkouts = listOf(
         )
     ),
     Workout(
-        id = "wk005",
+        id = 0L,
         letter = "E",
         name = "Upper Body - Hipertrofia",
         description = "Treino para a parte superior do corpo com foco em hipertrofia, buscando o aumento de massa muscular.",

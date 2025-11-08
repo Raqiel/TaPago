@@ -262,7 +262,7 @@ class CreateSharedViewModel(
 
     fun onSaveWorkout(){
         val newWorkout = Workout(
-            id = uiState.value.workout?.id ?: "",
+            id = uiState.value.workout?.id ?: 0,
             letter = uiState.value.letter?: "",
             name = uiState.value.workoutName  ?: "",
             description = uiState.value.description ?: "",

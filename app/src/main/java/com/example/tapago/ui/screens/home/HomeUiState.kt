@@ -12,7 +12,7 @@ internal class HomeUiStateProvider :
             workouts = listOf(
 
                 Workout(
-                    id = "1",
+                    id = 0,
                     letter = "A",
                     name = "Inferiores I",
                     description = null,
@@ -20,7 +20,7 @@ internal class HomeUiStateProvider :
                     exercises = mockExercises
                 ),
                 Workout(
-                    id = "2",
+                    id = 2,
                     letter = "B",
                     name = "Superiores I",
                     description = null,
@@ -28,7 +28,7 @@ internal class HomeUiStateProvider :
                     exercises = mockExercises
                 ),
                 Workout(
-                    id = "3",
+                    id = 3,
                     letter = "C",
                     name = "Inferiores II",
                     description = null,
@@ -36,7 +36,7 @@ internal class HomeUiStateProvider :
                     exercises = mockExercises
                 ),
                 Workout(
-                    id = "4",
+                    id = 4,
                     letter = "D",
                     name = "Superiores II",
                     description = null,
@@ -44,7 +44,7 @@ internal class HomeUiStateProvider :
                     exercises = mockExercises
                 ),
                 Workout(
-                    id = "5",
+                    id = 5,
                     letter = "D",
                     name = "Full body",
                     description = null,
