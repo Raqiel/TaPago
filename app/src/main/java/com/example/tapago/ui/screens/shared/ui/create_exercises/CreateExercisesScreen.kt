@@ -128,7 +128,7 @@ val a = uiState.letter
                         textButton = null,
                         iconButton = Icons.Filled.Check
                     ) {
-                        viewModel.onSaveWorkout()
+                        viewModel.onSaveWorkout(navigate)
                     }
 
                     Spacer(modifier = Modifier.height(20.dp))

@@ -27,7 +27,7 @@ import com.example.tapago.ui.theme.Title
 
 @Composable
 //provavelmente é mais seguro passar esse valor la pro viewmodel
-fun WorkoutScreen(workout: Workout) {
+fun WorkoutScreen(workout: Workout?) {
 
     Column(
         modifier = Modifier
@@ -42,27 +42,32 @@ fun WorkoutScreen(workout: Workout) {
                 .height(200.dp)
         ) {
             EmbossedCard(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = workout.letter,
-                    style = SuperFeaturedTitle
-                )
+                workout?.letter?.let {
+                    Text(
+                        text = it,
+                        style = SuperFeaturedTitle
+                    )
+                }
             }
             Spacer(Modifier.width(20.dp))
             EmbossedCard(modifier = Modifier.weight(3f)) {
                 Column(modifier = Modifier.padding(10.dp)) {
                     Text(
-                        text = workout.name ?: "",
+                        text = workout?.name ?: "",
                         style = Title
                     )
                     Text(
-                        text = workout.description ?: "",
+                        text = workout?.description ?: "",
                         style = Description
                     )
                 }
             }
 
         }
-        ExercisesView(workout)
+        workout?.let {
+            ExercisesView(it)
+        }
+
 
     }
 }

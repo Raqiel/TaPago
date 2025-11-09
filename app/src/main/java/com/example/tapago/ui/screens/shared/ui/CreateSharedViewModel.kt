@@ -2,6 +2,7 @@ package com.example.tapago.ui.screens.shared.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.tapago.Destination
 import com.example.tapago.models.Exercise
 import com.example.tapago.models.Workout
 import com.example.tapago.ui.screens.shared.data.WorkoutDao
@@ -260,7 +261,7 @@ class CreateSharedViewModel(
         )
     }
 
-    fun onSaveWorkout(){
+    fun onSaveWorkout( navigate: (Destination) -> Unit,){
         val newWorkout = Workout(
             id = uiState.value.workout?.id ?: 0,
             letter = uiState.value.letter?: "",
@@ -273,10 +274,16 @@ class CreateSharedViewModel(
         viewModelScope.launch {
             try{
                 createWorkoutUseCase.invoke(newWorkout)
-
+                goToHome(navigate)
             }catch (e: Exception){
                 val e = e
             }
         }
+    }
+
+    fun goToHome( navigate: (Destination) -> Unit){
+        //TODO- no momento esta chamando a home e adicionando na pilha, fuuramente tenho que passar un
+        // pop up, com parametro pra atualizar o load do viewmodel
+        navigate(Destination.Home())
     }
 }

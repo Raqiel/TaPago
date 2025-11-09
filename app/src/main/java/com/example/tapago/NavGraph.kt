@@ -10,6 +10,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.example.tapago.ArgumentKeys.WORKOUT_KEY
+import com.example.tapago.extensions.getArgObject
+import com.example.tapago.extensions.getArgStringValue
+import com.example.tapago.extensions.setArgObject
 import com.example.tapago.models.Workout
 import com.example.tapago.models.mockExercises
 import com.example.tapago.ui.screens.shared.ui.create_exercises.CreateExerciseScreen
@@ -42,7 +46,7 @@ object ArgumentKeys {
 sealed class Destination {
     class Home(val route: String = Route.HOME_ROUTE) : Destination()
     class Splash(val route: String = Route.SPLASH_ROUTE) : Destination()
-    class Workout(val route: String = Route.WORKOUT_ROUTE, val workout: Workout?) : Destination()
+    class Workout(val route: String = Route.WORKOUT_ROUTE, val workout: com.example.tapago.models.Workout?) : Destination()
     class CreateWorkout(val route: String = Route.CREATE_WORKOUT_ROUTE) : Destination()
     class CreateExercise(val route: String = Route.CREATE_EXERCISE_ROUTE) : Destination()
 }
@@ -76,15 +80,13 @@ fun NavGraph(
         composable(
             Route.WORKOUT_ROUTE
         ) {
+            val workout = navController.getArgObject(
+                key = WORKOUT_KEY,
+                classOf = Workout::class.java
+            )
+
             WorkoutScreen(
-                workout = Workout(
-                    id = 0,
-                    letter = "A",
-                    name = "Inferiores I",
-                    description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                    photo = null,
-                    exercises = mockExercises
-                )
+                workout = workout
             )
         }
         navigation(
@@ -129,7 +131,13 @@ class MainActions(private val navController: NavHostController) {
             }
 
             is Destination.Splash -> navController.navigate(destination.route)
-            is Destination.Workout -> navController.navigate(destination.route)
+            is Destination.Workout -> {
+                navController.setArgObject(
+                    key = WORKOUT_KEY,
+                    T = destination.workout
+                )
+                navController.navigate(destination.route)
+            }
             is Destination.CreateWorkout -> navController.navigate(destination.route)
             is Destination.CreateExercise -> navController.navigate(destination.route)
 

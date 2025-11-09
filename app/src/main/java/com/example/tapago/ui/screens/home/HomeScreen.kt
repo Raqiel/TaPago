@@ -39,6 +39,7 @@ import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import com.example.tapago.Destination
 import com.example.tapago.R
+import com.example.tapago.models.Workout
 import com.example.tapago.models.mockWorkouts
 import com.example.tapago.ui.components.AppFloatingButton
 import com.example.tapago.ui.components.CustomScaffold
@@ -87,7 +88,11 @@ fun HomeScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(Modifier.height(30.dp))
-                WorkoutsView(uiState, navigate)
+                WorkoutsView(
+                    uiState= uiState,
+                    navigate= navigate,
+                    onWorkoutClicked = {navigate(Destination.Workout(workout = it))}
+                    )
                 Spacer(Modifier.weight(1f))
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
@@ -106,7 +111,8 @@ fun HomeScreen(
 @Composable
 private fun WorkoutsView(
     uiState: HomeUiState,
-    navigate: (Destination) -> Unit
+    navigate: (Destination) -> Unit,
+    onWorkoutClicked: (Workout) -> Unit
 ) {
 
     val workouts = uiState.workouts
@@ -115,7 +121,8 @@ private fun WorkoutsView(
         WorkoutView(
             longClick = {},
             navigate = navigate,
-            uiState = uiState
+            uiState = uiState,
+            onWorkoutClicked = onWorkoutClicked
         )
     } else {
         EmptyWorkouts(
@@ -129,7 +136,8 @@ private fun WorkoutsView(
 private fun WorkoutView(
     longClick: (Boolean) -> Unit,
     uiState: HomeUiState,
-    navigate: (Destination) -> Unit
+    navigate: (Destination) -> Unit,
+    onWorkoutClicked:(Workout)->Unit
 ) {
     val scroll = rememberScrollState()
     Box(
@@ -142,10 +150,7 @@ private fun WorkoutView(
                 .background(BackgroundColor)
                 .verticalScroll(scroll)
                 .fillMaxSize()
-                .clickable(
-                    indication = null,
-                    interactionSource = remember { MutableInteractionSource() }) {
-                    longClick(false)
+                .clickable {
                 },
         ) {
             Box(
@@ -167,7 +172,7 @@ private fun WorkoutView(
                             titleText = it.name ?: "",
                             descriptionText = it.description,
                             letterText = it.letter,
-                            onCardClick = {
+                            onCardClick = { onWorkoutClicked(it)
                             },
                             onDelete = {
                             },
