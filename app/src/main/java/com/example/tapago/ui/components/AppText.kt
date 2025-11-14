@@ -8,6 +8,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.example.tapago.ui.theme.MediumColor
+import com.example.tapago.ui.theme.NewYellow
 import com.example.tapago.ui.theme.Oswald
 import java.util.Locale
 
@@ -27,3 +28,21 @@ fun FeaturedText(
         fontFamily = Oswald
     )
 }
+
+@Composable
+fun MediumText(
+    text: String,
+    size: Int? = null,
+    color: Color = NewYellow
+) {
+    Text(
+        text = text,
+        color = MediumColor,
+        fontSize = size?.sp ?: 20.sp,
+        textAlign = TextAlign.Center,
+        fontWeight = FontWeight.ExtraBold,
+        lineHeight = 60.sp,
+        fontFamily = Oswald
+    )
+}
+

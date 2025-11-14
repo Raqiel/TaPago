@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.volley)
+    implementation(libs.androidx.compose.ui.graphics)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -87,6 +88,11 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
     ksp("androidx.room:room-compiler:2.8.0")
+    implementation(libs.haze)
+    implementation(libs.haze.materials)
+
+    //liquid glass
+    implementation(libs.haze.jetpack.compose)
 
 
 }

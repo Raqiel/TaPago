@@ -62,13 +62,10 @@ fun WorkoutScreen(workout: Workout?) {
                     )
                 }
             }
-
         }
         workout?.let {
             ExercisesView(it)
         }
-
-
     }
 }
 

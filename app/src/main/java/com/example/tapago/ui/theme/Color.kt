@@ -46,6 +46,7 @@ val MediumColor = Color(0xFFE7AA4D)
 val NormalColor = Color(0xFFFFD08A)
 val BackgroundCardsColor = Color(0xFF424242)
 val BackgroundLight = Color(0xFF5F5F5F)
+val NewYellow = Color(0xFFF0B859)
 
 
 val ErrorColor = Color(0xFFFF0000)

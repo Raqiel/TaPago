@@ -5,13 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.tapago.Destination
 import com.example.tapago.models.Exercise
 import com.example.tapago.models.Workout
-import com.example.tapago.ui.screens.shared.data.WorkoutDao
 import com.example.tapago.usecase.CreateWorkoutUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.lang.System.load
 import java.util.UUID
 
 class CreateSharedViewModel(
