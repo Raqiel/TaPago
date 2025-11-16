@@ -32,14 +32,14 @@ fun AppTopBar(onBackClicked: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .statusBarsPadding()
-            .padding(horizontal = 24.dp)
-            .height(56.dp)
+            .height(52.dp)
             .background(BackgroundColor),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             Modifier
                 .fillMaxSize()
+                .padding(horizontal = 20.dp)
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null

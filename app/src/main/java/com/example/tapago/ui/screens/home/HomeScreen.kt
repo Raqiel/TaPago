@@ -1,6 +1,7 @@
 package com.example.tapago.ui.screens.home
 
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -72,6 +73,7 @@ import dev.chrisbanes.haze.HazeTint
 import dev.chrisbanes.haze.hazeEffect
 import dev.chrisbanes.haze.hazeSource
 import dev.chrisbanes.haze.rememberHazeState
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.newSingleThreadContext
 import org.koin.compose.viewmodel.koinViewModel
 import java.util.Locale
@@ -83,8 +85,17 @@ fun HomeScreen(
     navigate: (Destination) -> Unit,
     viewModel: HomeViewModel = koinViewModel()
 ) {
+    val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsState()
-
+    LaunchedEffect(key1 = true) {
+        viewModel.eventFlow.collectLatest { event ->
+            when (event) {
+                is UiEvent.ShowToast -> {
+                    Toast.makeText(context, event.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
     LaunchedEffect(Unit) {
         viewModel.load()
     }
@@ -101,11 +112,13 @@ fun HomeContent(
     navigate: (Destination) -> Unit,
     workouts: List<Workout>?
 ) {
-
     val hazeState = rememberHazeState()
+
+
+
     CustomScaffold(
         onBackClick = {},
-        hasTopBar = false
+        hasTopBar = true
     ) {
         Box() {
             Box(
@@ -120,12 +133,11 @@ fun HomeContent(
                     modifier = Modifier.fillMaxSize(),
                     contentScale = FillBounds
                 )
-
             }
+
             LazyColumn(verticalArrangement = Arrangement.Center) {
-
-
                 item {
+                    Spacer(Modifier.height(20.dp))
                     Box(
                         modifier = Modifier
                             .padding(20.dp)
@@ -145,35 +157,6 @@ fun HomeContent(
                     ) {
 
                         Column(Modifier.padding(horizontal = 20.dp)) {
-
-                            Row(
-                                Modifier
-                                    .padding(top = 20.dp)
-                                    .height(50.dp)
-                                    .fillMaxWidth(),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.AccountCircle,
-                                    contentDescription = "Ícone do Perfil",
-                                    modifier = Modifier.size(40.dp),
-                                    tint = Color(0xFFE5E5E5)
-                                )
-                                Spacer(modifier = Modifier.width(12.dp))
-                                Text(
-                                    text = "Olá, Raqiel",
-                                    style = MaterialTheme.typography.titleMedium,
-                                    color = Color(0xFFE5E5E5)
-                                )
-                                Spacer(modifier = Modifier.weight(1f))
-                                IconButton(onClick = {}) {
-                                    Icon(
-                                        imageVector = Icons.Default.Menu,
-                                        contentDescription = "Abrir Menu",
-                                        tint = Color(0xFFE5E5E5)
-                                    )
-                                }
-                            }
                             MediumText(
                                 text = "Já treinou hoje frango?",
                                 color = NewYellow
