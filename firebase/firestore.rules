@@ -1,0 +1,32 @@
+rules_version = '2';
+
+// Regras do Cloud Firestore.
+// Cole no Firebase Console > Firestore Database > Regras.
+//
+// A ideia: cada usuario so alcanca o proprio documento em users/{uid}.
+// Sem isso, qualquer pessoa com a chave do app (que fica dentro do APK)
+// consegue ler e escrever a base inteira - e voce paga por essas leituras.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      match /workouts/{workoutId} {
+        allow read, delete: if request.auth != null && request.auth.uid == userId;
+
+        // limita o tamanho do documento pra um treino nao virar um dump gigante
+        allow create, update: if request.auth != null
+          && request.auth.uid == userId
+          && request.resource.data.letter is string
+          && request.resource.data.letter.size() <= 3
+          && request.resource.data.exercises.size() <= 100;
+      }
+    }
+
+    // qualquer outro caminho fica bloqueado
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

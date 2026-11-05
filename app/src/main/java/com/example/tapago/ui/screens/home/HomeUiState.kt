@@ -58,5 +58,6 @@ internal class HomeUiStateProvider :
 }
 
 data class HomeUiState(
+    val lastWorkout: com.example.tapago.data.local.repositories.LastWorkout? = null,
     val workouts: List<Workout>? = null
 )

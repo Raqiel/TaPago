@@ -3,6 +3,9 @@
     <style name="Theme.TaPago" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/status_bar</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-    </style></resources>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

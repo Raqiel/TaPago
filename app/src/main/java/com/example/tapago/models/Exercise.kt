@@ -1,5 +1,7 @@
 package com.example.tapago.models
 
+import java.util.UUID
+
 data class Exercise(
     val id: String,
     val name: String?,
@@ -7,8 +9,23 @@ data class Exercise(
     val set: String?,
     val rep: String?,
     val weight: String?,
-    val backboard: String?
-)
+    val backboard: String?,
+    val photo: String? = null
+) : java.io.Serializable {
+    fun isBlank() = listOf(name, obs, set, rep, weight, backboard, photo).all { it.isNullOrBlank() }
+
+    companion object {
+        fun empty() = Exercise(
+            id = UUID.randomUUID().toString(),
+            name = "",
+            obs = "",
+            set = "",
+            rep = "",
+            weight = "",
+            backboard = ""
+        )
+    }
+}
 
 val mockExercises = listOf(
     Exercise(

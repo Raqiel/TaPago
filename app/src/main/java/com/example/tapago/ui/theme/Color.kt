@@ -48,6 +48,8 @@ val BackgroundCardsColor = Color(0xFF424242)
 val BackgroundLight = Color(0xFF5F5F5F)
 val NewYellow = Color(0xFFF0B859)
 
+val StatusBarColor = Yellow100
+
 
 val ErrorColor = Color(0xFFFF0000)
 

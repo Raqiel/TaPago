@@ -54,12 +54,14 @@ import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import com.example.tapago.Destination
 import com.example.tapago.R
+import com.example.tapago.data.local.repositories.LastWorkout
 import com.example.tapago.models.Workout
 import com.example.tapago.models.mockWorkouts
 import com.example.tapago.ui.components.AppFloatingButton
 import com.example.tapago.ui.components.CustomScaffold
 import com.example.tapago.ui.components.FeaturedText
 import com.example.tapago.ui.components.MediumText
+import com.example.tapago.ui.components.SmallText
 import com.example.tapago.ui.components.WorkoutCardGlass
 import com.example.tapago.ui.components.WorkoutCardView
 import com.example.tapago.ui.theme.BackgroundCardsColor
@@ -68,12 +70,16 @@ import com.example.tapago.ui.theme.Description
 import com.example.tapago.ui.theme.FeaturedColor
 import com.example.tapago.ui.theme.LightColor
 import com.example.tapago.ui.theme.NewYellow
+import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.HazeStyle
 import dev.chrisbanes.haze.HazeTint
 import dev.chrisbanes.haze.hazeEffect
 import dev.chrisbanes.haze.hazeSource
 import dev.chrisbanes.haze.rememberHazeState
 import kotlinx.coroutines.flow.collectLatest
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
 import kotlinx.coroutines.newSingleThreadContext
 import org.koin.compose.viewmodel.koinViewModel
 import java.util.Locale
@@ -101,7 +107,9 @@ fun HomeScreen(
     }
     HomeContent(
         navigate = navigate,
-        workouts = uiState.workouts
+        workouts = uiState.workouts,
+        lastWorkout = uiState.lastWorkout,
+        onMenuClick = {}
     )
 
 }
@@ -110,14 +118,16 @@ fun HomeScreen(
 @Composable
 fun HomeContent(
     navigate: (Destination) -> Unit,
-    workouts: List<Workout>?
+    workouts: List<Workout>?,
+    lastWorkout: LastWorkout? = null,
+    onMenuClick: () -> Unit = {}
 ) {
     val hazeState = rememberHazeState()
 
 
 
     CustomScaffold(
-        onBackClick = {},
+        onBackClick = onMenuClick,
         hasTopBar = true
     ) {
         Box() {
@@ -184,6 +194,14 @@ fun HomeContent(
                             Spacer(Modifier.height(20.dp))
                         }
                     }
+
+                    if (lastWorkout != null) {
+                        LastWorkoutCard(
+                            lastWorkout = lastWorkout,
+                            hazeState = hazeState
+                        )
+                    }
+
                     Box(
                         modifier = Modifier
                             .padding(20.dp)
@@ -273,6 +291,87 @@ fun HomeContent(
 
 }
 
+
+@Composable
+private fun LastWorkoutCard(
+    lastWorkout: LastWorkout,
+    hazeState: HazeState
+) {
+    Box(
+        modifier = Modifier
+            .padding(20.dp)
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(20.dp))
+            .background(Color.Transparent)
+            .hazeEffect(
+                state = hazeState,
+                style = HazeStyle(
+                    blurRadius = 8.dp,
+                    backgroundColor = White,
+                    tint = HazeTint(Black.copy(alpha = 0.6f))
+                )
+            )
+    ) {
+        Column(Modifier.padding(20.dp)) {
+            MediumText(
+                text = if (lastWorkout.finished) "Último treino" else "Treino em andamento",
+                color = NewYellow
+            )
+            Spacer(Modifier.height(12.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                FeaturedText(
+                    text = lastWorkout.letter.ifBlank { "?" },
+                    size = 56
+                )
+                Spacer(Modifier.width(20.dp))
+                Column {
+                    MediumText(
+                        text = lastWorkout.name.orEmpty().ifBlank { "Treino sem nome" },
+                        size = 18
+                    )
+                    SmallText(
+                        text = descreverQuando(lastWorkout.startedAt),
+                        size = 13,
+                        color = NewYellow
+                    )
+                    if (!lastWorkout.finished) {
+                        SmallText(
+                            text = "você não finalizou esse",
+                            size = 12,
+                            color = FeaturedColor
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+private fun descreverQuando(timestamp: Long): String {
+    val dias = diasDesde(timestamp)
+    return when {
+        dias <= 0L -> "hoje"
+        dias == 1L -> "ontem"
+        dias < 7L -> "há $dias dias"
+        else -> SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date(timestamp))
+    }
+}
+
+private fun diasDesde(timestamp: Long): Long {
+    val inicio = Calendar.getInstance().apply {
+        timeInMillis = timestamp
+        zerarHorario()
+    }
+    val hoje = Calendar.getInstance().apply { zerarHorario() }
+    return (hoje.timeInMillis - inicio.timeInMillis) / 86_400_000L
+}
+
+private fun Calendar.zerarHorario() {
+    set(Calendar.HOUR_OF_DAY, 0)
+    set(Calendar.MINUTE, 0)
+    set(Calendar.SECOND, 0)
+    set(Calendar.MILLISECOND, 0)
+}
 
 @Composable
 private fun WorkoutsView(

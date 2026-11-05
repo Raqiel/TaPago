@@ -10,5 +10,15 @@
     <string name="create_workout_placeholder_name">Nome do treino</string>
     <string name="create_workout_placeholder_description">Descrição do treino</string>
 
+    <!-- Login -->
+    <string name="login_title">Bora treinar</string>
+    <string name="login_email">E-mail</string>
+    <string name="login_password">Senha</string>
+    <string name="login_enter">Entrar</string>
+    <string name="login_create_account">Criar conta</string>
+    <string name="login_google">Entrar com Google</string>
+    <string name="login_forgot_password">Esqueci minha senha</string>
+
+    <string name="web_client_id" translatable="false">COLE_AQUI_SEU_WEB_CLIENT_ID.apps.googleusercontent.com</string>
 
 </resources>

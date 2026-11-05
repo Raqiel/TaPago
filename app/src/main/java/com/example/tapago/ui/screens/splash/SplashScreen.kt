@@ -32,7 +32,7 @@ import kotlinx.coroutines.delay
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun SplashScreen(
-    navigate: (Destination) -> Unit,
+    navigate: (Destination) -> Unit
 ) {
     LaunchedEffect(Unit) {
         delay(2000)
@@ -73,7 +73,7 @@ fun SplashScreen(
 @Composable
 fun SplashScreenPreview() {
     SplashScreen(
-        {}
+        navigate = {}
     )
 }
 

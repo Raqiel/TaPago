@@ -4,7 +4,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,15 +20,18 @@ import com.example.tapago.ui.screens.shared.ui.create_workout.CreateWorkoutScree
 import com.example.tapago.ui.screens.home.HomeScreen
 import com.example.tapago.ui.screens.shared.ui.CreateSharedViewModel
 import com.example.tapago.ui.screens.splash.SplashScreen
+import com.example.tapago.ui.screens.exercise_session.ExerciseSessionScreen
 import com.example.tapago.ui.screens.workout.WorkoutScreen
 import org.koin.androidx.compose.koinViewModel
 
 object Route {
     const val HOME_ROUTE = "HOME_ROUTE"
     const val SPLASH_ROUTE = "SPLASH_ROUTE"
+    const val LOGIN_ROUTE = "LOGIN_ROUTE"
     const val WORKOUT_ROUTE = "WORKOUT_ROUTE"
     const val CREATE_WORKOUT_ROUTE = "CREATE_WORKOUT_ROUTE"
     const val CREATE_EXERCISE_ROUTE = "CREATE_EXERCISE_ROUTE"
+    const val EXERCISE_SESSION_ROUTE = "EXERCISE_SESSION_ROUTE"
 
 }
 
@@ -46,9 +48,11 @@ object ArgumentKeys {
 sealed class Destination {
     class Home(val route: String = Route.HOME_ROUTE) : Destination()
     class Splash(val route: String = Route.SPLASH_ROUTE) : Destination()
+    class Login(val route: String = Route.LOGIN_ROUTE) : Destination()
     class Workout(val route: String = Route.WORKOUT_ROUTE, val workout: com.example.tapago.models.Workout?) : Destination()
     class CreateWorkout(val route: String = Route.CREATE_WORKOUT_ROUTE) : Destination()
     class CreateExercise(val route: String = Route.CREATE_EXERCISE_ROUTE) : Destination()
+    class ExerciseSession(val route: String = Route.EXERCISE_SESSION_ROUTE, val workout: com.example.tapago.models.Workout?) : Destination()
 }
 
 
@@ -86,7 +90,21 @@ fun NavGraph(
             )
 
             WorkoutScreen(
-                workout = workout
+                workout = workout,
+                navigate = actions.navigate
+            )
+        }
+        composable(
+            Route.EXERCISE_SESSION_ROUTE
+        ) {
+            val workout = navController.getArgObject(
+                key = WORKOUT_KEY,
+                classOf = Workout::class.java
+            )
+
+            ExerciseSessionScreen(
+                workout = workout,
+                navigate = actions.navigate
             )
         }
         navigation(
@@ -109,8 +127,8 @@ fun NavGraph(
                     navController.getBackStackEntry(CreateFlowRoute.ROOT)
                 }
                 val sharedViewModel: CreateSharedViewModel =
-                    viewModel(viewModelStoreOwner = parentEntry)
-                CreateExerciseScreen(navigate = actions.navigate, sharedViewModel)
+                    koinViewModel(viewModelStoreOwner = parentEntry)
+                CreateExerciseScreen(navigate = actions.navigate, viewModel = sharedViewModel)
             }
         }
     }
@@ -126,12 +144,26 @@ class MainActions(private val navController: NavHostController) {
     val navigate: (Destination) -> Unit = { destination ->
         when (destination) {
             is Destination.Home -> {
+                navController.navigate(destination.route) {
+                    popUpTo(0) { inclusive = true }
+                    launchSingleTop = true
+                }
+            }
 
-                navController.navigate(destination.route)
+            is Destination.Login -> navController.navigate(destination.route) {
+                popUpTo(0) { inclusive = true }
+                launchSingleTop = true
             }
 
             is Destination.Splash -> navController.navigate(destination.route)
             is Destination.Workout -> {
+                navController.setArgObject(
+                    key = WORKOUT_KEY,
+                    T = destination.workout
+                )
+                navController.navigate(destination.route)
+            }
+            is Destination.ExerciseSession -> {
                 navController.setArgObject(
                     key = WORKOUT_KEY,
                     T = destination.workout

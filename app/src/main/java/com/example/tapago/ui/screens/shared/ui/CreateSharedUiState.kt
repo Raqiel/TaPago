@@ -8,15 +8,8 @@ data class CreateSharedUiState(
     val letter: String? = "",
     val workoutName: String? = "",
     val description: String? = "",
-    val exercises: List<Exercise>? = listOf(
-        Exercise(
-            id = "",
-            name = "",
-            obs = "",
-            set = "",
-            rep = "",
-            weight = "",
-            backboard = ""
-        )
-    ),
+    val exercises: List<Exercise>? = listOf(Exercise.empty()),
+    val photoUri: String? = null,
+    val isSaving: Boolean = false,
+    val errorMessage: String? = null
 )

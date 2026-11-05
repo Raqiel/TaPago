@@ -1,0 +1,3 @@
+- [TaPago: escopo e restrição de custo](tapago-escopo-e-custo.md) — ficha de academia que vai crescer, backend tem que ser de graça
+- [Idioma pt-BR](tapago-idioma-pt-br.md) — conversa, comentários e UI em português do Brasil
+- [Nunca rodar o app](nunca-rodar-o-app.md) — só compilar, nada de adb/install/emulador

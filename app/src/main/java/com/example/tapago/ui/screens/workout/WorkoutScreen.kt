@@ -35,12 +35,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import com.example.tapago.Destination
 import com.example.tapago.R
 import com.example.tapago.models.Workout
+import com.example.tapago.models.resumo
 import com.example.tapago.models.mockExercises
 import com.example.tapago.ui.components.CustomScaffold
 import com.example.tapago.ui.components.EmbossedCard
 import com.example.tapago.ui.components.FeaturedText
+import com.example.tapago.ui.components.MarombaButton
 import com.example.tapago.ui.components.MediumText
 import com.example.tapago.ui.components.SmallText
 import com.example.tapago.ui.theme.BackgroundCardsColor
@@ -60,7 +64,10 @@ import java.util.Locale
 
 @Composable
 //provavelmente é mais seguro passar esse valor la pro viewmodel
-fun WorkoutScreen(workout: Workout?) {
+fun WorkoutScreen(
+    workout: Workout?,
+    navigate: (Destination) -> Unit = {}
+) {
     val hazeState = rememberHazeState()
     CustomScaffold(
         onBackClick = {},
@@ -122,7 +129,18 @@ fun WorkoutScreen(workout: Workout?) {
 
                         }
                     }
-                    workout?.exercises?.forEach { _ ->
+
+                    if (!workout?.exercises.isNullOrEmpty()) {
+                        Box(Modifier.padding(horizontal = 20.dp)) {
+                            MarombaButton(
+                                textButton = "Começar treino",
+                                iconButton = null,
+                                onClick = { navigate(Destination.ExerciseSession(workout = workout)) }
+                            )
+                        }
+                    }
+
+                    workout?.exercises?.forEach { exercise ->
                         Box(
                             modifier = Modifier
                                 .padding(20.dp)
@@ -141,7 +159,12 @@ fun WorkoutScreen(workout: Workout?) {
                                 )
                         ) {
 
-                            Row(Modifier.padding(horizontal = 20.dp).height(250.dp)) {
+                            Row(
+                                modifier = Modifier
+                                    .padding(horizontal = 20.dp, vertical = 20.dp)
+                                    .fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
 
                                 Box(
                                     modifier = Modifier
@@ -149,21 +172,42 @@ fun WorkoutScreen(workout: Workout?) {
                                         .clip(CircleShape)
                                         .border(3.dp, NewYellow, CircleShape)
                                 ) {
-                                    Image(
-                                        painter = painterResource(id = R.drawable.img_exercise),
-                                        contentDescription = "Profile Picture",
-                                        contentScale = ContentScale.Crop,
-                                        modifier = Modifier.matchParentSize()
-                                    )
+                                    if (exercise.photo != null) {
+                                        AsyncImage(
+                                            model = exercise.photo,
+                                            contentDescription = exercise.name,
+                                            contentScale = ContentScale.Crop,
+                                            modifier = Modifier.matchParentSize()
+                                        )
+                                    } else {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.img_exercise),
+                                            contentDescription = null,
+                                            contentScale = ContentScale.Crop,
+                                            modifier = Modifier.matchParentSize()
+                                        )
+                                    }
                                 }
                                 Spacer(Modifier.width(20.dp))
-                                Column() {
+                                Column(Modifier.weight(1f)) {
                                     MediumText(
-                                        text = workout?.name ?: "Nome do Treino",
+                                        text = exercise.name.orEmpty().ifBlank { "Exercício sem nome" },
                                     )
-                                    SmallText(
-                                        text = workout?.description ?: "Nome do Treino",
-                                    )
+                                    val resumo = exercise.resumo()
+                                    if (resumo.isNotBlank()) {
+                                        Spacer(Modifier.height(4.dp))
+                                        SmallText(
+                                            text = resumo,
+                                            size = 14,
+                                            color = NewYellow
+                                        )
+                                    }
+                                    if (!exercise.obs.isNullOrBlank()) {
+                                        Spacer(Modifier.height(8.dp))
+                                        SmallText(
+                                            text = exercise.obs,
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -173,6 +217,7 @@ fun WorkoutScreen(workout: Workout?) {
         }
 
     }}
+
 @Preview
 @Composable
 fun WorkoutScreenPreview() {
